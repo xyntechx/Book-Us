@@ -4,6 +4,7 @@ BookUs is a centralised platform for booking academic consultations, study group
 ## 🤖 Technologies
 - Next.js
 - Tailwind CSS
+- Supabase
 
 ## 🔨 Usage
 ```bash

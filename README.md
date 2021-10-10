@@ -11,5 +11,9 @@ npm install next react react-dom
 ```
 
 ```bash
+npm install @supabase/supabase-js
+```
+
+```bash
 npm run dev
 ```

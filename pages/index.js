@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import { supabase } from "../utils/supabaseClient";
-import Auth from "../components/Auth";
-import Account from "../components/Account";
+import Auth from "../components/auth";
+import Account from "../components/account";
 
 export default function Home() {
     const [session, setSession] = useState(null);

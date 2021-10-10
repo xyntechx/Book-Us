@@ -5,18 +5,18 @@ export default function Auth() {
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState("");
 
-    const handleLogin = async (email) => {
+    async function handleLogin(email) {
         try {
             setLoading(true);
             const { error } = await supabase.auth.signIn({ email });
             if (error) throw error;
-            alert("Check your email for the login link!");
+            alert("Check your email for your Magic Link!");
         } catch (error) {
             alert(error.error_description || error.message);
         } finally {
             setLoading(false);
         }
-    };
+    }
 
     return (
         <div className="flex flex-col items-center w-2/6 justify-center py-2">

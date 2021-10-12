@@ -64,7 +64,7 @@ export default function Account({ session }) {
             <input
                 id="email"
                 type="text"
-                className="block border w-full p-3 rounded mb-4"
+                className="block appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight border-blue-500 text-center text-xl mb-4 bg-gray-300"
                 value={session.user.email}
                 disabled
             />
@@ -72,7 +72,7 @@ export default function Account({ session }) {
             <input
                 id="username"
                 type="text"
-                className="block border w-full p-3 rounded mb-4"
+                className="block appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight border-blue-500 text-center text-xl focus:bg-blue-200 focus:outline-none mb-4"
                 placeholder="Full Name"
                 value={username || ""}
                 onChange={(e) => setUsername(e.target.value)}

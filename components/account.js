@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../utils/supabaseClient";
+import Link from 'next/link';
 
 export default function Account({ session }) {
     const [loading, setLoading] = useState(true);
@@ -85,6 +86,12 @@ export default function Account({ session }) {
             >
                 {loading ? "Loading ..." : "Update"}
             </button>
+
+            <Link href = "/bookings">
+                <button className="w-full text-center py-3 rounded text-white bg-blue-400 hover:bg-blue-500 focus:outline-none my-1">
+                    View Calendar
+                </button>
+            </Link>
 
             <button
                 className="w-full text-center py-3 rounded text-white bg-red-400 hover:bg-red-500 focus:outline-none my-1"

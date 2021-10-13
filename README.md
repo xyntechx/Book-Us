@@ -16,11 +16,7 @@ npm install @supabase/supabase-js
 ```
 
 ```bash
-npm install --save react-big-calendar
-```
-
-```bash
-npm i --save moment
+npm i react-big-calendar
 ```
 
 ```bash

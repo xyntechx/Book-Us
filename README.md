@@ -20,7 +20,7 @@ npm install --save react-big-calendar
 ```
 
 ```bash
-npm install moment --save
+npm i --save moment
 ```
 
 ```bash

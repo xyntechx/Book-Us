@@ -1,4 +1,4 @@
-import Head from "next/dist/shared/lib/head";
+import Head from "next/head";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -16,6 +16,7 @@ export default function BookUsCalendar() {
                 <title>BookUs</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+            <h1>Calendar</h1>
             <Calendar
                 localizer={localizer}
                 events={myEventsList}
@@ -24,7 +25,7 @@ export default function BookUsCalendar() {
                 style={{ height: "90vh" }}
             />
             <Link href="/">
-                <button className="w-1/4 text-center py-3 rounded text-white bg-blue-400 hover:bg-blue-500 focus:outline-none my-1">
+                <button className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-blue-400 border rounded hover:animate-bounce text-white">
                     Back to Home
                 </button>
             </Link>

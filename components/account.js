@@ -61,7 +61,7 @@ export default function Account({ session }) {
     }
 
     return (
-        <div className="flex flex-col items-center w-2/6 justify-center py-2">
+        <div className="flex flex-col items-center justify-center w-screen min-h-screen py-2">
             <input
                 id="email"
                 type="text"
@@ -88,7 +88,7 @@ export default function Account({ session }) {
             </button>
 
             <Link href="/bookings">
-                <button className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-green-400 border rounded hover:animate-bounce text-white">
+                <button className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-blue-400 border rounded hover:animate-bounce text-white">
                     View Calendar
                 </button>
             </Link>

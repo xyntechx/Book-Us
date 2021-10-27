@@ -12,7 +12,7 @@ export default function BookUsCalendar() {
     async function createDateRecord({ start, end }) {
         try {
             const user = supabase.auth.user();
-            const updates = { createdat: new Date(), date: start, userid: user.id };
+            const updates = { createdat: new Date(), date: end, userid: user.id };
             
             let { error } = await supabase.from('dates').upsert(updates, { returning: 'minimal'});
             if (error) {

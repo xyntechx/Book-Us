@@ -25,7 +25,7 @@ export default function BookUsCalendar() {
                 style={{ height: "90vh" }}
             />
             <Link href="/">
-                <button className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-green-400 border rounded hover:ring-2 ring-green-400 text-white">
+                <button className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-green-400 border rounded hover:border-green-500 text-white">
                     Back to Home
                 </button>
             </Link>

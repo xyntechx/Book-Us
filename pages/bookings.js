@@ -12,9 +12,15 @@ export default function BookUsCalendar() {
     async function createDateRecord({ start, end }) {
         try {
             const user = supabase.auth.user();
-            const updates = { createdat: new Date(), date: start, userid: user.id };
-            
-            let { error } = await supabase.from('dates').upsert(updates, { returning: 'minimal'});
+            const updates = {
+                createdat: new Date(),
+                date: start,
+                userid: user.id,
+            };
+
+            let { error } = await supabase
+                .from("dates")
+                .upsert(updates, { returning: "minimal" });
             if (error) {
                 throw error;
             }
@@ -35,7 +41,7 @@ export default function BookUsCalendar() {
                 startAccessor="start"
                 endAccessor="end"
                 selectable={true}
-                events = {myEventsList}
+                events={myEventsList}
                 style={{ height: "90vh" }}
                 onSelectSlot={createDateRecord}
             />

@@ -9,13 +9,52 @@ export default function BookUsCalendar() {
     const localizer = momentLocalizer(moment);
     var myEventsList = [];
 
+    function formatDate(dateString) {
+        const dateItems = dateString.split(" ");
+        var date = dateItems[2];
+
+        if (dateItems[1] == "Jan") {
+            date += "/01";
+        } else if (dateItems[1] == "Feb") {
+            date += "/02";
+        } else if (dateItems[1] == "Mar") {
+            date += "/03";
+        } else if (dateItems[1] == "Apr") {
+            date += "/04";
+        } else if (dateItems[1] == "May") {
+            date += "/05";
+        } else if (dateItems[1] == "Jun") {
+            date += "/06";
+        } else if (dateItems[1] == "Jul") {
+            date += "/07";
+        } else if (dateItems[1] == "Aug") {
+            date += "/08";
+        } else if (dateItems[1] == "Sep") {
+            date += "/09";
+        } else if (dateItems[1] == "Oct") {
+            date += "/10";
+        } else if (dateItems[1] == "Nov") {
+            date += "/11";
+        } else if (dateItems[1] == "Dec") {
+            date += "/12";
+        }
+
+        date += "/" + dateItems[3];
+        date += "/" + dateItems[4];
+        return date;
+    }
+
     async function createDateRecord({ start, end }) {
         try {
             const user = supabase.auth.user();
+            const startDate = formatDate(String(start));
+            const endDate = formatDate(String(end));
+
             const updates = {
-                createdat: new Date(),
-                date: start,
-                userid: user.id,
+                createdOn: new Date(),
+                startDate: startDate,
+                endDate: endDate,
+                userID: user.id,
             };
 
             let { error } = await supabase

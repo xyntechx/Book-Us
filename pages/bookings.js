@@ -13,56 +13,34 @@ export default function BookUsCalendar() {
         const dateItems = dateString.split(" ");
         var date = dateItems[2];
 
-        if (dateItems[1] == 'Jan') {
-            date += '/01';
+        if (dateItems[1] == "Jan") {
+            date += "/01";
+        } else if (dateItems[1] == "Feb") {
+            date += "/02";
+        } else if (dateItems[1] == "Mar") {
+            date += "/03";
+        } else if (dateItems[1] == "Apr") {
+            date += "/04";
+        } else if (dateItems[1] == "May") {
+            date += "/05";
+        } else if (dateItems[1] == "Jun") {
+            date += "/06";
+        } else if (dateItems[1] == "Jul") {
+            date += "/07";
+        } else if (dateItems[1] == "Aug") {
+            date += "/08";
+        } else if (dateItems[1] == "Sep") {
+            date += "/09";
+        } else if (dateItems[1] == "Oct") {
+            date += "/10";
+        } else if (dateItems[1] == "Nov") {
+            date += "/11";
+        } else if (dateItems[1] == "Dec") {
+            date += "/12";
         }
 
-        else if (dateItems[1] == 'Feb') {
-            date += '/02';
-        }
-
-        else if (dateItems[1] == 'Mar') {
-            date += '/03';
-        }
-
-        else if (dateItems[1] == 'Apr') {
-            date += '/04';
-        }
-
-        else if (dateItems[1] == 'May') {
-            date += '/05';
-        }
-
-        else if (dateItems[1] == 'Jun') {
-            date += '/06';
-        }
-
-        else if (dateItems[1] == 'Jul') {
-            date += '/07';
-        }
-
-        else if (dateItems[1] == 'Aug') {
-            date += '/08';
-        }
-
-        else if (dateItems[1] == 'Sep') {
-            date += '/09';
-        }
-
-        else if (dateItems[1] == 'Oct') {
-            date += '/10';
-        }
-
-        else if (dateItems[1] == 'Nov') {
-            date += '/11';
-        }
-
-        else if (dateItems[1] == 'Dec') {
-            date += '/12';
-        }
-
-        date += '/' + dateItems[3];
-        date += '/' + dateItems[4];
+        date += "/" + dateItems[3];
+        date += "/" + dateItems[4];
         return date;
     }
 
@@ -72,9 +50,16 @@ export default function BookUsCalendar() {
             const startDate = formatDate(String(start));
             const endDate = formatDate(String(end));
 
-            const updates = { createdOn: new Date(), startDate: startDate, endDate: endDate, userID: user.id };
-            
-            let { error } = await supabase.from('dates').upsert(updates, { returning: 'minimal'});
+            const updates = {
+                createdOn: new Date(),
+                startDate: startDate,
+                endDate: endDate,
+                userID: user.id,
+            };
+
+            let { error } = await supabase
+                .from("dates")
+                .upsert(updates, { returning: "minimal" });
             if (error) {
                 throw error;
             }
@@ -95,7 +80,7 @@ export default function BookUsCalendar() {
                 startAccessor="start"
                 endAccessor="end"
                 selectable={true}
-                events = {myEventsList}
+                events={myEventsList}
                 style={{ height: "90vh" }}
                 onSelectSlot={createDateRecord}
             />

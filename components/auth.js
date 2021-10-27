@@ -37,7 +37,7 @@ export default function Auth() {
                     handleLogin(email);
                 }}
                 disabled={loading}
-                className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-green-400 border rounded hover:animate-bounce text-white"
+                className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-green-400 border rounded hover:ring-2 ring-green-400 text-white"
             >
                 <span>{loading ? "Loading..." : "Let's Go!"}</span>
             </button>

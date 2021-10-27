@@ -80,7 +80,7 @@ export default function Account({ session }) {
             />
 
             <button
-                className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-green-400 border rounded hover:animate-bounce text-white"
+                className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-green-400 border rounded hover:ring-2 ring-green-400 text-white"
                 onClick={() => updateProfile({ username })}
                 disabled={loading}
             >
@@ -88,13 +88,13 @@ export default function Account({ session }) {
             </button>
 
             <Link href="/bookings">
-                <button className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-blue-400 border rounded hover:animate-bounce text-white">
+                <button className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-green-400 border rounded hover:ring-2 ring-green-400 text-white">
                     View Calendar
                 </button>
             </Link>
 
             <button
-                className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-red-500 border rounded hover:animate-bounce text-white"
+                className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-green-400 border rounded hover:ring-2 ring-green-400 text-white"
                 onClick={() => supabase.auth.signOut()}
             >
                 Sign Out

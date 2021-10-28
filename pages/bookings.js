@@ -11,36 +11,51 @@ export default function BookUsCalendar() {
 
     function formatDate(dateString) {
         const dateItems = dateString.split(" ");
+        var month = dateItems[1];
         var date = dateItems[2];
 
-        if (dateItems[1] == "Jan") {
-            date += "/01";
-        } else if (dateItems[1] == "Feb") {
-            date += "/02";
-        } else if (dateItems[1] == "Mar") {
-            date += "/03";
-        } else if (dateItems[1] == "Apr") {
-            date += "/04";
-        } else if (dateItems[1] == "May") {
-            date += "/05";
-        } else if (dateItems[1] == "Jun") {
-            date += "/06";
-        } else if (dateItems[1] == "Jul") {
-            date += "/07";
-        } else if (dateItems[1] == "Aug") {
-            date += "/08";
-        } else if (dateItems[1] == "Sep") {
-            date += "/09";
-        } else if (dateItems[1] == "Oct") {
-            date += "/10";
-        } else if (dateItems[1] == "Nov") {
-            date += "/11";
-        } else if (dateItems[1] == "Dec") {
-            date += "/12";
+        switch (month) {
+            case "Jan":
+                date += "/01";
+                break;
+            case "Feb":
+                date += "/02";
+                break;
+            case "Mar":
+                date += "/03";
+                break;
+            case "Apr":
+                date += "/04";
+                break;
+            case "May":
+                date += "/05";
+                break;
+            case "Jun":
+                date += "/06";
+                break;
+            case "Jul":
+                date += "/07";
+                break;
+            case "Aug":
+                date += "/08";
+                break;
+            case "Sep":
+                date += "/09";
+                break;
+            case "Oct":
+                date += "/10";
+                break;
+            case "Nov":
+                date += "/11";
+                break;
+            case "Dec":
+                date += "/12";
+                break;
         }
 
         date += "/" + dateItems[3];
         date += "/" + dateItems[4];
+
         return date;
     }
 

@@ -1,71 +1,71 @@
 import Head from "next/head";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 
-class FindUser extends React.Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: 'User123'
-        };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange(event) {
-        this.setState({value: event.target.value});
-    }
-
-    handleSubmit(event) {
+export default function FindUser() {
+    const [results, setResults] = useState([]);
+    const [value, setValue] = useState("");
+    
+    function handleChange(event) {
         event.preventDefault();
-        this.checkUser();
+        setValue(event.target.value.toLowerCase());
     }
 
-    async checkUser() {
-        const { data, error } = await supabase
-            .from("profiles")
-            .select("username")
-            .eq("username", this.state.value);
+    async function checkUsers() {
+        var allUsers = [];
+        const {data, error} = await supabase
+        .from('profiles')
+        .select('username');
+        for (const item of data) allUsers.push(item.username); // extract all users from supabase
         
-        if (data.length > 0) {
-            alert(this.state.value + " was found!");
+        var filteredUsers = [];
+        for (const item of allUsers) {
+            if (item.toLowerCase().includes(value)) {
+                filteredUsers.push(item);
+            }
         }
 
-        else {
-            alert(this.state.value + " was not found :(");
+        if (filteredUsers.length == 0) {
+            filteredUsers.push('Sorry, no users found.');
         }
 
-        this.setState({value: "User123"});
+        setResults(filteredUsers);
     }
 
-    render() {
-        return (
-            <div className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center m-4">
-                <Head>
-                    <title>BookUs</title>
-                    <link rel="icon" href="/favicon.ico" />
-                </Head>
-                
-                <h1>Who would you like to book?</h1>
-    
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Key in the person's name:
-                        <textarea value={this.state.value} onChange={this.handleChange}/>
-                    </label>
-                    <input type="submit" value="Submit"/>
-                </form>
-    
-                <Link href="/">
-                    <button className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-green-400 border rounded hover:border-green-500 text-white">
-                        Cancel
-                    </button>
-                </Link>
-            </div>
-        );
-    }
+    useEffect(checkUsers, [value]);
+
+    return (
+        <div className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center m-4" id="root">
+            <Head>
+                <title>BookUs</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            
+            <h1 className="text-4xl md:text-6xl font-bold">Who would you like to meet?</h1>
+
+            <form className = "w-4/5 m-20 h-10">
+                <input placeholder = "Enter a username" name = "name" className = "border rounded" onChange={handleChange}></input>
+            </form>
+
+            <p><b>Search Results</b></p>
+            <br></br>
+
+            <ul>
+                {
+                    results.map((username, i) => {
+                        return <li>{username}</li>
+                    })
+                }
+            </ul>
+
+            <br></br>
+
+            <Link href="/">
+                <button className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-green-400 border rounded hover:border-green-500 text-white">
+                    Back to Home
+                </button>
+            </Link>
+        </div>
+    );
 }
-
-export default FindUser;

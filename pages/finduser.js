@@ -6,20 +6,32 @@ import { supabase } from "../utils/supabaseClient";
 export default function FindUser() {
     const [results, setResults] = useState([]);
     const [value, setValue] = useState("");
-    
+
+    useEffect(checkUsers, [value]);
+
     function handleChange(event) {
         event.preventDefault();
         setValue(event.target.value.toLowerCase());
     }
 
+    function capitalize(name) {
+        let arr_name = name.split(" ");
+        let result = [];
+        for (const sub of arr_name) {
+            result.push(sub.charAt(0).toUpperCase() + sub.slice(1));
+        }
+        return result.join(" ");
+    }
+
     async function checkUsers() {
-        var allUsers = [];
-        const {data, error} = await supabase
-        .from('profiles')
-        .select('username');
+        let allUsers = [];
+        const { data, error } = await supabase
+            .from("profiles")
+            .select("username");
+
         for (const item of data) allUsers.push(item.username); // extract all users from supabase
-        
-        var filteredUsers = [];
+
+        let filteredUsers = [];
         for (const item of allUsers) {
             if (item.toLowerCase().includes(value)) {
                 filteredUsers.push(item);
@@ -27,36 +39,51 @@ export default function FindUser() {
         }
 
         if (filteredUsers.length == 0) {
-            filteredUsers.push('Sorry, no users found.');
+            filteredUsers.push("Sorry, no users found.");
         }
 
         setResults(filteredUsers);
     }
 
-    useEffect(checkUsers, [value]);
-
     return (
-        <div className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center m-4" id="root">
+        <div
+            className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center m-4"
+            id="root"
+        >
             <Head>
                 <title>BookUs</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            
-            <h1 className="text-4xl md:text-6xl font-bold">Who would you like to meet?</h1>
 
-            <form className = "w-4/5 m-20 h-10">
-                <input placeholder = "Enter a username" name = "name" className = "border rounded" onChange={handleChange}></input>
+            <h1 className="text-4xl md:text-6xl font-bold">Book a Person</h1>
+
+            <form className="w-4/5 m-20 h-10" autoComplete="off">
+                <input
+                    placeholder="Name of Person to Book"
+                    value={capitalize(value) || ""}
+                    name="name"
+                    className="border rounded"
+                    onChange={handleChange}
+                ></input>
             </form>
 
-            <p><b>Search Results</b></p>
-            <br></br>
+            <h1 className="text-2xl md:text-xl font-bold">Search Results</h1>
 
             <ul>
-                {
-                    results.map((username, i) => {
-                        return <li>{username}</li>
+                {value ? (
+                    results.map((username, _) => {
+                        return (
+                            <>
+                                <button value={username} onClick={handleChange}>
+                                    {username}
+                                </button>
+                                <br />
+                            </>
+                        );
                     })
-                }
+                ) : (
+                    <></>
+                )}
             </ul>
 
             <br></br>

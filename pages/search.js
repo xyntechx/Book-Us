@@ -6,7 +6,36 @@ import { supabase } from "../utils/supabaseClient";
 export default function FindUser() {
     const [results, setResults] = useState([]);
     const [value, setValue] = useState("");
+    const [usernameToEmailID, setUsernameToEmailID] = useState({});
+    const [emailID, setEmailID] = useState("");
+
+    useEffect(() => {
+        getProfile();
+    }, []);
+
     useEffect(checkUsers, [value]);
+
+    async function getProfile() {
+        try {
+            const user = supabase.auth.user();
+
+            let { data, error, status } = await supabase
+                .from("profiles")
+                .select("emailID")
+                .eq("id", user.id)
+                .single();
+
+            if (error && status !== 406) {
+                throw error;
+            }
+
+            if (data) {
+                setEmailID(data.emailID);
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    }
 
     function handleChange(event) {
         event.preventDefault();
@@ -26,9 +55,18 @@ export default function FindUser() {
         let allUsers = [];
         const { data, error } = await supabase
             .from("profiles")
-            .select("username");
+            .select("username, emailID");
 
-        for (const item of data) allUsers.push(item.username); // extract all users from supabase
+        for (const item of data) {
+            // extract all users from supabase
+            allUsers.push(item.username);
+        }
+
+        for (const item of data) {
+            usernameToEmailID[item.username] = item.emailID;
+        }
+
+        console.log(usernameToEmailID);
 
         let filteredUsers = [];
         for (const item of allUsers) {
@@ -73,10 +111,12 @@ export default function FindUser() {
                     results.map((username, _) => {
                         return (
                             <>
-                                <Link href = "/bookings">
-                                    <button>
-                                        {username}
-                                    </button>
+                                <Link
+                                    href={
+                                        "/book/" + usernameToEmailID[username]
+                                    }
+                                >
+                                    <button>{username}</button>
                                 </Link>
                                 <br></br>
                             </>
@@ -89,9 +129,9 @@ export default function FindUser() {
 
             <br></br>
 
-            <Link href="/">
+            <Link href={"/" + emailID}>
                 <button className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-green-400 border rounded hover:border-green-500 text-white">
-                    Back to Home
+                    My Dashboard
                 </button>
             </Link>
         </div>

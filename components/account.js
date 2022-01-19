@@ -5,6 +5,7 @@ import Link from "next/link";
 export default function Account({ session }) {
     const [loading, setLoading] = useState(true);
     const [username, setUsername] = useState(null);
+    const [emailID, setEmailID] = useState("");
 
     useEffect(() => {
         getProfile();
@@ -17,7 +18,7 @@ export default function Account({ session }) {
 
             let { data, error, status } = await supabase
                 .from("profiles")
-                .select("username")
+                .select("username, emailID")
                 .eq("id", user.id)
                 .single();
 
@@ -27,6 +28,7 @@ export default function Account({ session }) {
 
             if (data) {
                 setUsername(data.username);
+                setEmailID(data.emailID);
             }
         } catch (error) {
             alert(error.message);
@@ -43,6 +45,7 @@ export default function Account({ session }) {
             const updates = {
                 id: user.id,
                 username,
+                emailID: user.email.slice(0, user.email.indexOf("@")),
                 updated_at: new Date(),
             };
 
@@ -52,9 +55,18 @@ export default function Account({ session }) {
 
             if (error) {
                 throw error;
+            } else {
+                alert("Profile updated successfully!");
             }
         } catch (error) {
-            alert(error.message);
+            if (
+                error.message ===
+                'new row for relation "profiles" violates check constraint "username_length"'
+            ) {
+                alert("Please enter your full name!");
+            } else {
+                alert(error.message);
+            }
         } finally {
             setLoading(false);
         }
@@ -88,27 +100,21 @@ export default function Account({ session }) {
                 />
 
                 <button
-                    className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-green-400 border rounded hover:border-green-500 text-white "
+                    className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-green-400 border rounded hover:border-green-500 text-white"
                     onClick={() => updateProfile({ username })}
                     disabled={loading}
                 >
                     {loading ? "Loading ..." : "Update"}
                 </button>
 
-                <Link href="/finduser">
-                    <button className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-blue-400 border rounded hover:border-blue-500 text-white ">
-                        Book a Person
-                    </button>
-                </Link>
-
-                <Link href="/bookings">
-                    <button className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-blue-400 border rounded hover:border-blue-500 text-white ">
-                        View Calendar
+                <Link href={"/" + emailID}>
+                    <button className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-blue-400 border rounded hover:border-blue-500 text-white">
+                        My Dashboard
                     </button>
                 </Link>
 
                 <button
-                    className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-red-400 border rounded hover:border-red-500 text-white "
+                    className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-red-400 border rounded hover:border-red-500 text-white"
                     onClick={() => supabase.auth.signOut()}
                 >
                     Sign Out

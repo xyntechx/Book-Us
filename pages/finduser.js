@@ -6,7 +6,6 @@ import { supabase } from "../utils/supabaseClient";
 export default function FindUser() {
     const [results, setResults] = useState([]);
     const [value, setValue] = useState("");
-
     useEffect(checkUsers, [value]);
 
     function handleChange(event) {
@@ -74,10 +73,12 @@ export default function FindUser() {
                     results.map((username, _) => {
                         return (
                             <>
-                                <button value={username} onClick={handleChange}>
-                                    {username}
-                                </button>
-                                <br />
+                                <Link href = "/bookings">
+                                    <button>
+                                        {username}
+                                    </button>
+                                </Link>
+                                <br></br>
                             </>
                         );
                     })

@@ -101,6 +101,12 @@ export default function Account({ session }) {
                     </button>
                 </Link>
 
+                <Link href="/bookings">
+                    <button className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-blue-400 border rounded hover:border-blue-500 text-white ">
+                        View Calendar
+                    </button>
+                </Link>
+
                 <button
                     className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-red-400 border rounded hover:border-red-500 text-white "
                     onClick={() => supabase.auth.signOut()}

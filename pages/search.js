@@ -84,22 +84,26 @@ export default function FindUser() {
 
     return (
         <div
-            className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center m-4"
-            id="root"
-        >
+
+        className="flex flex-col items-center justify-center w-screen min-h-screen py-2"
+
+        id="root"
+
+    >
             <Head>
                 <title>BookUs</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
             <h1 className="text-4xl md:text-6xl font-bold">Book a Person</h1>
+            <br></br>
 
-            <form className="w-4/5 m-20 h-10" autoComplete="off">
+            <form className="" autoComplete="off">
                 <input
                     placeholder="Name of Person to Book"
                     value={capitalize(value) || ""}
                     name="name"
-                    className="border rounded"
+                    className = "transition duration-500 ease-in-out block appearance-none border rounded w-2/9000 md:w-2/9000 py-2 px-9000 leading-tight border-green-500 text-center text-xl focus:outline-none mb-4 "
                     onChange={handleChange}
                 ></input>
             </form>
@@ -109,8 +113,8 @@ export default function FindUser() {
             <ul>
                 {value ? (
                     results.map((username, _) => {
-                        return (
-                            <>
+                        return (   
+                            <table class="border rounded w-60 h-12 text-center border-2 border-black md:text-center">
                                 <Link
                                     href={
                                         "/book/" + usernameToEmailID[username]
@@ -119,7 +123,7 @@ export default function FindUser() {
                                     <button>{username}</button>
                                 </Link>
                                 <br></br>
-                            </>
+                            </table>
                         );
                     })
                 ) : (

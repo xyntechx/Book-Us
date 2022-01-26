@@ -53,6 +53,7 @@ export default function FindUser() {
 
     async function checkUsers() {
         let allUsers = [];
+
         const { data, error } = await supabase
             .from("profiles")
             .select("username, emailID");
@@ -65,8 +66,6 @@ export default function FindUser() {
         for (const item of data) {
             usernameToEmailID[item.username] = item.emailID;
         }
-
-        console.log(usernameToEmailID);
 
         let filteredUsers = [];
         for (const item of allUsers) {
@@ -84,12 +83,9 @@ export default function FindUser() {
 
     return (
         <div
-
-        className="flex flex-col items-center justify-center w-screen min-h-screen py-2"
-
-        id="root"
-
-    >
+            className="flex flex-col items-center justify-center w-screen min-h-screen py-2"
+            id="root"
+        >
             <Head>
                 <title>BookUs</title>
                 <link rel="icon" href="/favicon.ico" />
@@ -98,43 +94,40 @@ export default function FindUser() {
             <h1 className="text-4xl md:text-6xl font-bold">Book a Person</h1>
             <br></br>
 
-            <form className="" autoComplete="off">
+            <form autoComplete="off">
                 <input
-                    placeholder="Name of Person to Book"
+                    placeholder="Search Name"
                     value={capitalize(value) || ""}
                     name="name"
-                    className = "transition duration-500 ease-in-out block appearance-none border rounded w-2/9000 md:w-2/9000 py-2 px-9000 leading-tight border-green-500 text-center text-xl focus:outline-none mb-4 "
+                    className="transition duration-500 ease-in-out block appearance-none border rounded leading-tight border-green-500 text-center text-xl w-80 m-4 p-2 focus:bg-green-400 focus:outline-none"
                     onChange={handleChange}
                 ></input>
             </form>
 
-            <h1 className="text-2xl md:text-xl font-bold">Search Results</h1>
-
-            <ul>
-                {value ? (
-                    results.map((username, _) => {
-                        return (   
-                            <table class="border rounded w-60 h-12 text-center border-2 border-black md:text-center">
-                                <Link
-                                    href={
-                                        "/book/" + usernameToEmailID[username]
-                                    }
-                                >
-                                    <button>{username}</button>
-                                </Link>
-                                <br></br>
-                            </table>
+            {value ? (
+                <div className="flex align-top items-start flex-col w-80 h-72 overflow-y-scroll border rounded border-green-500">
+                    {results.map((username, _) => {
+                        return (
+                            <Link href={"/book/" + usernameToEmailID[username]}>
+                                <a class="cursor-pointer block w-80 text-xl text-center border-b hover:bg-green-400 border-green-500 md:text-center">
+                                    {username}
+                                </a>
+                            </Link>
                         );
-                    })
-                ) : (
-                    <></>
-                )}
-            </ul>
+                    })}
+                </div>
+            ) : (
+                <div className="flex items-center justify-center flex-col w-80 h-72 border rounded border-green-500">
+                    <p className="text-xl text-center">
+                        Type the name of the person you would like to book!
+                    </p>
+                </div>
+            )}
 
             <br></br>
 
             <Link href={"/" + emailID}>
-                <button className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-green-400 border rounded hover:border-green-500 text-white">
+                <button className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-green-400 border rounded hover:border-green-500 text-white absolute bottom-5">
                     My Dashboard
                 </button>
             </Link>

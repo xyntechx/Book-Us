@@ -52,7 +52,7 @@ export default function Dashboard() {
                     </button>
                 </Link>
 
-                <Link href={"/book/" + emailID}>
+                <Link href={"/calendar"}>
                     <button className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-blue-400 border rounded hover:border-blue-500 text-white">
                         My Calendar
                     </button>

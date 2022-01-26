@@ -57,6 +57,11 @@ export default function Dashboard() {
                         My Calendar
                     </button>
                 </Link>
+                <Link href="/">
+                    <a className="transition duration-500 ease-in-out w-4/5 md:w-2/5 text-center py-3 focus:outline-none my-1 bg-red-400 border rounded hover:border-red-500 text-white">
+                        Back to Home
+                    </a>
+                </Link>
             </main>
         </div>
     );

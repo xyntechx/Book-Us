@@ -14,6 +14,7 @@ export default function BookUsCalendar() {
     const [username, setUsername] = useState("");
     const [myUsername, setMyUsername] = useState("");
     const [myEmailID, setMyEmailID] = useState("");
+    const [userID2, setUserID2] = useState(null);
 
     useEffect(() => {
         getMyProfile();
@@ -85,6 +86,7 @@ export default function BookUsCalendar() {
 
             const updates = {
                 userID: user.id,
+                userID2: userID2,
                 createdOn: new Date(),
                 date: date,
                 startTime: startTime,
@@ -106,7 +108,7 @@ export default function BookUsCalendar() {
         try {
             let { data, error, status } = await supabase
                 .from("profiles")
-                .select("username")
+                .select("id, username")
                 .eq("emailID", emailID)
                 .single();
 
@@ -116,6 +118,7 @@ export default function BookUsCalendar() {
 
             if (data) {
                 setUsername(data.username);
+                setUserID2(data.id);
             }
         } catch (error) {
             alert(error.message);

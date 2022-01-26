@@ -15,13 +15,12 @@ export default function BookUsCalendar() {
     const [myUsername, setMyUsername] = useState("");
     const [myEmailID, setMyEmailID] = useState("");
     const [userID2, setUserID2] = useState(null);
+    const [myEventsList, setMyEventsList] = useState([]);
 
     useEffect(() => {
         getMyProfile();
         getProfile();
     }, []);
-
-    var myEventsList = [];
 
     function getDate(dateString) {
         const dateItems = dateString.split(" ");
@@ -149,7 +148,7 @@ export default function BookUsCalendar() {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center m-4">
+        <div className="flex flex-col items-center justify-center w-screen h-screen text-center">
             <Head>
                 <title>BookUs</title>
                 <link rel="icon" href="/favicon.ico" />
@@ -168,7 +167,7 @@ export default function BookUsCalendar() {
                 step={15}
                 timeslots={1}
                 events={myEventsList}
-                style={{ height: "70vh", width: "60vw" }}
+                style={{ height: "70vh", width: "70vw" }}
                 onSelectSlot={createEvent}
             />
             <br />

@@ -20,6 +20,10 @@ export default function Home() {
             <Head>
                 <title>BookUs</title>
                 <link rel="icon" href="/favicon.ico" />
+                <meta
+                    httpEquiv="Refresh"
+                    content="0; url='https://xyntechx.netlify.app/bookus'"
+                />
             </Head>
 
             <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
